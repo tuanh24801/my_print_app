@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test In Lệnh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        .order-details {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Đơn Hàng #12345</h1>
+    <div class="order-details">
+        <p><strong>Khách Hàng:</strong> Nguyễn Văn A</p>
+        <p><strong>Sản Phẩm:</strong> Laptop, 2 chiếc</p>
+        <p><strong>Địa Chỉ:</strong> 123 Đường ABC, Quận 1, TP.HCM</p>
+        <p><strong>Tổng Tiền:</strong> 20.000.000 VNĐ</p>
+    </div>
+
+    <!-- Nút in đơn -->
+    <button id="printButton">In Đơn</button>
+
+    <script>
+        // Gửi yêu cầu đến ứng dụng Python (Flask server) khi bấm nút "In Đơn"
+        document.getElementById("printButton").onclick = function() {
+            fetch('http://localhost:5000/print', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: document.body.innerText  // Gửi nội dung toàn bộ trang HTML
+                })
+            })
+            .then(response => response.json())
+            .then(data => alert('Đơn hàng đã được in!'))
+            .catch(error => alert('Lỗi khi in đơn: ' + error));
+        };
+    </script>
+</body>
+</html>
