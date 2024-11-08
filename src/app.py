@@ -7,8 +7,11 @@ import win32ui
 import json
 import os
 import time
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Đường dẫn tới file lưu trữ máy in đã chọn
 PRINTER_CONFIG_FILE = 'printer_config.json'
@@ -98,9 +101,10 @@ def load_selected_printer():
             config = json.load(f)
             selected_printer = config.get("printer")
 
-# API Flask để nhận yêu cầu in từ HTML
+
 @app.route('/print', methods=['POST'])
 def print_order():
+    # return "in thành công"
     global selected_printer
 
     # Nếu chưa có máy in đã chọn, yêu cầu người dùng chọn máy in
