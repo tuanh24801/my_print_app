@@ -132,8 +132,10 @@ def run_flask():
 
 if __name__ == '__main__':
     # Đọc máy in đã chọn từ file
+    print("Flask server đang chạy...")
+    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
     load_selected_printer()
-
+    
     # Nếu chưa có máy in, hiển thị giao diện để chọn
     if not selected_printer:
         show_printer_dialog()
@@ -142,9 +144,12 @@ if __name__ == '__main__':
     flask_thread = threading.Thread(target=run_flask)
     flask_thread.daemon = True  # Cho phép dừng Flask khi đóng ứng dụng
     flask_thread.start()
+    
+
 
     # Đảm bảo rằng Flask và Tkinter không cản trở nhau
     time.sleep(2)  # Đảm bảo Flask server có thời gian để khởi động trước khi tương tác với Tkinter
 
     # Flask đã chạy trong background, bây giờ có thể làm các tác vụ Tkinter hoặc các tác vụ khác
     messagebox.showinfo("Thông Báo", "Ứng dụng đang chạy. Mở HTML và bấm nút In Đơn để thử nghiệm.")
+    
